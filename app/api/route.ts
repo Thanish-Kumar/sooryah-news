@@ -1,7 +1,4 @@
 import { NextResponse } from 'next/server';
-import { NewsService } from '@/services/newsService';
-
-const newsService = new NewsService();
 
 export async function GET() {
   return NextResponse.json({

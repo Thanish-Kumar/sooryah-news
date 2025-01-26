@@ -34,15 +34,21 @@ export class NewsService {
 
   async parseFeed(feedUrl: string) {
     try {
-      const feed = await this.parser.parseURL(feedUrl);
+      const response = await fetch(feedUrl, {
+        next: { revalidate: 43200 }  // 5 minutes cache
+      });
+      const data = await response.text();
+      const feed = await this.parser.parseString(data);
+      
       const newsItems = await Promise.all(
-        feed.items.slice(0, 10).map(async (entry) => {
+        feed.items.slice(0, 10).map(async (entry, index) => {
           const classification = await this.classifier.isHealthRelated(
             entry.title!,
             entry.contentSnippet || ''
           );
 
           return {
+            id: index,
             title: entry.title,
             link: entry.link,
             published: entry.pubDate,
