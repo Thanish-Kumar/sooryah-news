@@ -20,7 +20,7 @@ interface NewsApiResponse {
 }
 
 // Add export const revalidate option for ISR
-export const revalidate = 300; // revalidate every 5 minutes
+export const revalidate = process.env.REVALIDATE_TIME; // GET FROM .ENV
 
 // Data fetching at build time
 async function getNewsData(): Promise<NewsApiResponse> {

@@ -34,9 +34,7 @@ export class NewsService {
 
   async parseFeed(feedUrl: string) {
     try {
-      const response = await fetch(feedUrl, {
-        next: { revalidate: 43200 }  // 5 minutes cache
-      });
+      const response = await fetch(feedUrl);
       const data = await response.text();
       const feed = await this.parser.parseString(data);
       
