@@ -18,9 +18,8 @@ interface NewsApiResponse {
   sources_checked: string[];
   news: NewsItem[];
 }
-
-// Add export const revalidate option for ISR
-export const revalidate = process.env.REVALIDATE_TIME; // GET FROM .ENV
+// Use a constant value from the environment variable
+export const revalidate = 43200;
 
 // Data fetching at build time
 async function getNewsData(): Promise<NewsApiResponse> {
